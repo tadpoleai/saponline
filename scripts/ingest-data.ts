@@ -7,6 +7,11 @@ import { UnstructuredDirectoryLoader, UnstructuredLoader } from 'langchain/docum
 import { PINECONE_INDEX_NAME, PINECONE_NAME_SPACE } from '@/config/pinecone';
 import { DirectoryLoader } from 'langchain/document_loaders/fs/directory';
 
+import path from "path";
+import * as url from "url";
+const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
+
+
 /* Name of directory to retrieve your files from 
    Make sure to add your PDF files inside the 'docs' folder
 */
@@ -25,8 +30,17 @@ export const run = async () => {
 
     const directoryPath = filePath;
     const loader = new UnstructuredDirectoryLoader(directoryPath, options);
-    
-    const rawDocs = await loader.load();
+
+
+    const file_loader = new UnstructuredLoader(
+      path.resolve(__dirname, "../docs/sap01.md"),
+      options
+    );
+
+
+    // const rawDocs = await loader.load();
+    const rawDocs = await file_loader.load();
+
 
     // const loader = new PDFLoader(filePath);
     // const rawDocs = await directoryLoader.load();
