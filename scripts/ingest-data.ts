@@ -18,7 +18,7 @@ const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 /* Name of directory to retrieve your files from 
    Make sure to add your PDF files inside the 'docs' folder
 */
-const filePath = 'docs';
+const filePath = 'docx2';
 
 export const run = async () => {
   try {
@@ -84,6 +84,7 @@ export const run = async () => {
 
 
     const docs = await textSplitter.splitDocuments(rawDocs);
+    // console.log(rawDocs.values)
     console.log('split docs', docs);
 
     console.log('creating vector store...');
@@ -96,7 +97,7 @@ export const run = async () => {
     //embed the PDF documents
     await PineconeStore.fromDocuments(docs, embeddings, {
       pineconeIndex: index,
-      namespace: '',
+      namespace: PINECONE_NAME_SPACE,
       textKey: 'text',
     });
 
