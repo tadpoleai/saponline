@@ -4,6 +4,8 @@ import { PineconeStore } from 'langchain/vectorstores/pinecone';
 import { pinecone } from '@/utils/pinecone-client';
 import { PDFLoader } from 'langchain/document_loaders/fs/pdf';
 import { DocxLoader } from 'langchain/document_loaders/fs/docx';
+import { TextLoader } from 'langchain/document_loaders/fs/text';
+
 
 
 import { UnstructuredDirectoryLoader, UnstructuredLoader } from 'langchain/document_loaders/fs/unstructured';
@@ -18,13 +20,13 @@ const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 /* Name of directory to retrieve your files from 
    Make sure to add your PDF files inside the 'docs' folder
 */
-const filePath = 'docx2';
+const filePath = 'txts';
 
 export const run = async () => {
   try {
     /*load raw docs from the all files in the directory */
     const directoryLoader = new DirectoryLoader(filePath, {
-      '.docx': (path) => new DocxLoader(path),
+      '.txt': (path) => new TextLoader(path),
     });
 
 
@@ -59,31 +61,19 @@ export const run = async () => {
     */
     
 
-
-    // const rawDocs = await file_loader.load();
     const rawDocs = await directoryLoader.load();
 
 
-    // const loader = new PDFLoader(filePath);
-    // const rawDocs = await directoryLoader.load();
-
-    /* Split text into chunks */
-    const textSplitter = new RecursiveCharacterTextSplitter({
-      chunkSize: 500,
-      chunkOverlap: 200,
-    });
-
-    // const textSplitter = new MarkdownTextSplitter({
-    //   chunkSize: 100,
-    //   chunkOverlap: 0,
-    // });
+      /* Split text into chunks */
+      const textSplitter = new RecursiveCharacterTextSplitter({
+        chunkSize: 500,
+        chunkOverlap: 200,
+      });
+  
+  
+      const docs = await textSplitter.splitDocuments(rawDocs);
 
 
-    // docs = markdown_splitter.create_documents([markdown_text])
-    // const docs = await textSplitter.splitDocuments(rawDocs);
-
-
-    const docs = await textSplitter.splitDocuments(rawDocs);
     // console.log(rawDocs.values)
     console.log('split docs', docs);
 

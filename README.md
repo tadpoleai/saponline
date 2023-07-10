@@ -97,3 +97,6 @@ In general, keep an eye out in the `issues` and `discussions` section of this re
 ## Credit
 
 Frontend of this repo is inspired by [langchain-chat-nextjs](https://github.com/zahidkhawaja/langchain-chat-nextjs)
+
+
+curl --request POST --url 'https://sap-index01-e068318.svc.asia-southeast1-gcp-free.pinecone.io/describe_index_stats'  --header 'Api-Key: ea16cfac-6d11-42c4-afde-01e2ed5e1e78'  --header 'accept: application/json'      --header 'content-type: application/json'

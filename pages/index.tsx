@@ -25,7 +25,7 @@ export default function Home() {
   }>({
     messages: [
       {
-        message: 'Hi, 你可以现在问我文档里的任何问题了，我会尽力帮你?',
+        message: 'Hi, 你可以现在问我文档里的任何问题了，我会尽力帮你',
         type: 'apiMessage',
       },
     ],
